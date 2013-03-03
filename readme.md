@@ -12,3 +12,4 @@ python3 manage.py runserver 8081
 python3 manage.py migrate
 
 ## Creating first app 
+python3 manage.py startapp tasks
