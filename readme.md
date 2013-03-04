@@ -13,3 +13,6 @@ python3 manage.py migrate
 
 ## Creating first app 
 python3 manage.py startapp tasks
+
+## django shell
+python3 manage.py shell
