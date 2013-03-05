@@ -4,7 +4,15 @@
 <h1>List of Tasks</h1>
 <ul>
   {% for task in tasks %}
-  <li>{{ task.task }}</li>
+    <li class="mb-2">
+      {{ task.task }}
+      {% if task.completed_at is false %} 
+      <a href="{% url 'tasks:complete' task.id %}" class="btn btn-sm btn-outline-primary">complete</a>
+      {% endif %}
+    </li>
   {% endfor %}
 </ul>
+
+<a href="{% url 'tasks:create' %}">Create New Task</a>
+
 {% endblock %}
