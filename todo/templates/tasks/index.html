@@ -1,1 +1,10 @@
-TASKS
+{% extends 'layouts/app.html' %} {% block title %} Tasks {% endblock %} 
+
+{% block content %}
+<h1>List of Tasks</h1>
+<ul>
+  {% for task in tasks %}
+  <li>{{ task.task }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
