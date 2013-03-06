@@ -1,5 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse 
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.utils import timezone
+
 from .models import Task
 
 # Create your views here.
@@ -17,11 +21,14 @@ def create(request):
 
 # Store a task
 def store(request):
-    print('store task')
-    
-
-    return HttpResponse(request)
+    if request.POST['task'].strip() == '':
+        messages.error(request, "Please insert task")
+        return redirect('/tasks/create')
+    else:
+        task = Task(task = request.POST['task'], created_at = timezone.now())
+        task.save()
+        return redirect('/tasks')
 
 # Complete a task
 def complete(request, task_id):
-    return render(request, 'tasks/create.html')
+    return HttpResponse(task_id)
