@@ -1,9 +1,18 @@
-{% extends 'layouts/app.html' %} {% block title %} Tasks {% endblock %} 
+{% extends 'layouts/app.html' %} {% block title %} Create New Task {% endblock %} 
 
 {% block content %}
 <h1>Create New Task</h1>
 
+<form action="{% url 'tasks:store' %}" method="post">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="task" class="form-label">Task</label>
+    <textarea id="task" name="task" class="form-control"  aria-describedby="taskHelp"></textarea>
+  </div>
+  <button type="submit" class="btn btn-sm btn-outline-primary">Create</button>
+</form>
 
-<a href="{% url 'tasks:index' %}">All Tasks</a>
+
+<a href="{% url 'tasks:index' %}" class="btn btn-sm btn-outline-success mt-3">All Tasks</a>
 
 {% endblock %}
