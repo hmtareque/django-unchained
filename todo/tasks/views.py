@@ -31,4 +31,12 @@ def store(request):
 
 # Complete a task
 def complete(request, task_id):
-    return HttpResponse(task_id)
+    task = Task.objects.get(pk=task_id)
+    if task:
+        task.completed_at = timezone.now()
+        task.save()
+        messages.success(request, "Task completed successfully")
+        return redirect('/tasks')
+    else:
+        messages.error(request, "Failed to mark the task completed")
+        return redirect('/tasks')
