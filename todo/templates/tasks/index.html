@@ -1,14 +1,15 @@
-{% extends 'layouts/app.html' %} {% block title %} Tasks {% endblock %} {% block
-content %}
+{% extends 'layouts/app.html' %} {% block title %} Tasks {% endblock %} {% block content %}
 
+<div class="card p-5">
 <div class="row">
-  <div class="col-8">
-    <h1>List of Tasks</h1>
+  <div class="col">
+    <h3 class="float-start">List of Tasks</h3>
+  
   </div>
-  <div class="col-4">
+  <div class="col">
     <a href="{% url 'tasks:create' %}" class="btn btn-sm btn-outline-success"
-      >Create New Task</a
-    >
+    >Create New Task</a
+  >
   </div>
 </div>
 
@@ -31,18 +32,13 @@ content %}
         </svg>
 
         {{ task.task }} {% if task.completed_at is false %}
-        <a
-          href="{% url 'tasks:complete' task.id %}"
-          class="btn btn-sm btn-outline-primary"
-          >complete</a
-        >
-
+       
         <!-- Button trigger modal -->
         <button
           type="button"
           class="btn btn-sm btn-outline-primary"
           data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
+          data-bs-target="#task-{{ task.id }}-modal"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -61,15 +57,15 @@ content %}
         <!-- Modal -->
         <div
           class="modal fade"
-          id="exampleModal"
+          id="task-{{ task.id }}-modal"
           tabindex="-1"
-          aria-labelledby="exampleModalLabel"
+          aria-labelledby="taskModalLabel"
           aria-hidden="true"
         >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="taskModalLabel">Task Complete</h5>
                 <button
                   type="button"
                   class="btn-close"
@@ -78,17 +74,11 @@ content %}
                 ></button>
               </div>
               <form action="{% url 'tasks:complete' task.id %}" method="post">
-                <div class="modal-body"></div>
+                  {% csrf_token %}
+                <div class="modal-body">Are your sure to complete the task {{ task.task }}?</div>
                 <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-primary">
-                    Save changes
+                  <button type="submit" class="btn btn-primary">
+                    Complete
                   </button>
                 </div>
               </form>
@@ -101,6 +91,7 @@ content %}
       {% endfor %}
     </ul>
   </div>
+</div>
 </div>
 
 {% endblock %}
