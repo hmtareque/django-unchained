@@ -11,7 +11,7 @@ from .models import Task
 
 # Get tasks and display 
 def index(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(completed_at__isnull=True)
     context = {'tasks': tasks}
     return render(request, 'tasks/index.html', context)
 
