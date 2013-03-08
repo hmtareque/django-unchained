@@ -7,4 +7,8 @@ admin.site.site_header = 'Todo App'
 admin.site.site_title = 'Todo App Admin'
 admin.site.index_title = 'Welcome to Todo App'
 
-admin.site.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    fields = ['task', 'created_at']
+    list_display = ('task', 'created_at', 'completed_at')
+
+admin.site.register(Task, TaskAdmin)
