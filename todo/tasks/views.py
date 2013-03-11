@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from .models import Task
 
@@ -16,6 +17,7 @@ def index(request):
     return render(request, 'tasks/index.html', context)
 
 # Create new task
+@login_required(login_url='/admin/login')
 def create(request):
     return render(request, 'tasks/create.html')
 
